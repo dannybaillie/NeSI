@@ -9,29 +9,34 @@
 
     <li> Type "nano simplefunction.m" and Copy and Paste the following (it makes a random matrix and displays the result of a calculation), write out and exit:
     
-<p>
-function simplefunction(n)<br>
-n = str2double(n);<br>
-a = rand(n);<br>
-save simpleMatlab a<br>
-2^10<br>
-</p>
+<pre>
+<code>
+function simplefunction(n)
+n = str2double(n);
+a = rand(n);
+save simpleMatlab a
+2^10
+</code>
+</pre>
+
 
 
 <li> Type "nano simpleMatlab.sl" and Copy and Paste the following (you need to replace "projectIDhere" with your project ID from OtagoPanInstructions), write out and exit:
 
 
-<p>
-#!/bin/bash<br>
-#SBATCH -J yourjobName<br>
-#SBATCH -A projectIDhere<br>
-#SBATCH --time=1:00:00<br>
-#SBATCH --mem-per-cpu=2048<br>
-#SBATCH --output=simpleMatlabout.txt<br>
-#SBATCH --error=simpleMatlaberr.txt<br>
-module load MATLAB/2015b<br>
-srun matlab -nodesktop -nosplash -nodisplay -nojvm -r 'simplefunction 20'<br>
-</p>
+<pre>
+<code>
+#!/bin/bash
+#SBATCH -J yourjobName
+#SBATCH -A projectIDhere
+#SBATCH --time=1:00:00
+#SBATCH --mem-per-cpu=2048
+#SBATCH --output=simpleMatlabout.txt
+#SBATCH --error=simpleMatlaberr.txt
+module load MATLAB/2015b
+srun matlab -nodesktop -nosplash -nodisplay -nojvm -r 'simplefunction 20'
+</code>
+</pre>
 
 
 <li> Submit the Slurm script you created in step 2 by typing: "sbatch simpleMatlab.sl".
@@ -50,13 +55,15 @@ simpleMatlaberr.txt: empty file <br>
 <li> You copy the .mat file to you local machine (see OtagoPanInstructions) or look at it on the build node using:
 
 
-<p>
-ssh build-sb <br>
-module load MATLAB/2015b<br>
-matlab<br>
-load simpleMatlab<br>
-disp(a)<br>
-</p>
+<code>
+<pre>
+ssh build-sb 
+module load MATLAB/2015b
+matlab
+load simpleMatlab
+disp(a)
+</code>
+</pre>
 
 
 <li> Changing your code to work on Pan
