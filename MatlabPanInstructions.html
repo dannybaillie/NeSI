@@ -63,13 +63,9 @@ disp(a)<br>
 
 
 <ol>
-    <li> Inputs
+    <li> Inputs: The code you want to run will be a MATLAB script or function. If it is a script then it has no direct inputs (perhaps it will load a .mat file, or all parameters will be set in the script). If it is a function then inputs will be received by MATLAB as text strings. If you need numeric inputs, you'll need to use e.g. 'str2double' (as we did in step 1 above). 
 
-The code you want to run will be a MATLAB script or function. If it is a script then it has no direct inputs (perhaps it will load a .mat file, or all parameters will be set in the script). If it is a function then inputs will be received by MATLAB as text strings. If you need numeric inputs, you'll need to use e.g. 'str2double' (as we did in step 1 above). 
-
-<li> Outputs
-
-It is not useful for your function to return explicit outputs: either use the text output (what you normally see on the screen which goes into the file you specify with "#SBATCH --output=") or (much more likely) save results, e.g. to a .mat file (as we did in step 1).
+<li> Outputs: It is not useful for your function to return explicit outputs: either use the text output (what you normally see on the screen which goes into the file you specify with "#SBATCH --output=") or (much more likely) save results, e.g. to a .mat file (as we did in step 1).
 
 </ol>
 </ol>
