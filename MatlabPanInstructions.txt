@@ -48,3 +48,8 @@ The code you want to run will be a MATLAB script or function. If it is a script 
 
 It is not useful for your function to return explicit outputs: either use the text output (what you normally see on the screen which goes into the file you specify with "#SBATCH --output=") or (much more likely) save results, e.g. to a .mat file (as we did in step 1).
 
+6.3 To use more than one core, add the following to your .sl script (change the 8 to the number of CPUs your code can use):
+    
+#SBATCH --cpus-per-task=8
+#SBATCH --ntasks=1
+

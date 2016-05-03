@@ -2,12 +2,10 @@
 <body>
 <h1>How to get your MATLAB work done on NeSI's Pan cluster</h1>
 
-
-
 <ol>
     <li> Prerequisites: Work through the companion document <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a> first.
 
-    <li> Type "nano simplefunction.m" and Copy and Paste the following (it makes a random matrix and displays the result of a calculation), write out and exit:
+    <li> Type <code>nano simplefunction.m</code> and Copy and Paste the following (it makes a random matrix and displays the result of a calculation), write out and exit:
     
 <pre>
 <code>
@@ -20,9 +18,7 @@ save simpleMatlab a
 </pre>
 
 
-
-<li> Type "nano simpleMatlab.sl" and Copy and Paste the following (you need to replace "projectIDhere" with your project ID from OtagoPanInstructions), write out and exit:
-
+<li> Type <code>nano simpleMatlab.sl</code> and Copy and Paste the following (you need to replace <code>projectIDhere</code> with your project ID from <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a>), write out and exit:
 
 <pre>
 <code>
@@ -38,22 +34,20 @@ srun matlab -nodesktop -nosplash -nodisplay -nojvm -r 'simplefunction 20'
 </code>
 </pre>
 
-
-<li> Submit the Slurm script you created in step 2 by typing: "sbatch simpleMatlab.sl".
+<li> Submit the Slurm script you created in step 2 by typing: <code>sbatch simpleMatlab.sl</code>.
 
 
 <li> When your job is finished, you should find three new files:
 
 
-<p>
-simpleMatlab.mat: a MATLAB file with a 20 by 20 random matrix in it <br>
-simpleMatlabout.txt: including the text "1024" from calculating 2^10 <br>
-simpleMatlaberr.txt: empty file <br>
-</p>
+<ul>
+<li><code>simpleMatlab.mat</code>: a MATLAB file with a 20 by 20 random matrix in it 
+<li><code>simpleMatlabout.txt</code>: including the text "1024" from calculating 2^10 
+<li><code>simpleMatlaberr.txt</code>: empty file 
+</ul>
 
 
-<li> You copy the .mat file to you local machine (see OtagoPanInstructions) or look at it on the build node using:
-
+<li> You copy the file <code>simpleMatlab.mat</code> to you local machine (see <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a>) or look at it on the build node using:
 
 <code>
 <pre>
@@ -65,16 +59,21 @@ disp(a)
 </code>
 </pre>
 
-
 <li> Changing your code to work on Pan
 
+<ul>
+    <li> Inputs: The code you want to run will be a MATLAB script or function. If it is a script then it has no direct inputs (perhaps it will load a .mat file, or all parameters will be set in the script). If it is a function then inputs will be received by MATLAB as text strings. If you need numeric inputs, you'll need to use e.g. <code>str2double</code> (as we did in step 2 above). 
 
-<ol>
-    <li> Inputs: The code you want to run will be a MATLAB script or function. If it is a script then it has no direct inputs (perhaps it will load a .mat file, or all parameters will be set in the script). If it is a function then inputs will be received by MATLAB as text strings. If you need numeric inputs, you'll need to use e.g. 'str2double' (as we did in step 1 above). 
-
-<li> Outputs: It is not useful for your function to return explicit outputs: either use the text output (what you normally see on the screen which goes into the file you specify with "#SBATCH --output=") or (much more likely) save results, e.g. to a .mat file (as we did in step 1).
-
-</ol>
+    <li> Outputs: It is not useful for your function to return explicit outputs: either use the text output (what you normally see on the screen which goes into the file you specify with <code>#SBATCH --output=</code>) or (much more likely) save results, e.g. to a <code>.mat</code> file (as we did in step 1).
+    <li> To use more than one core, add the following to your <code>.sl</code> script (change the 8 to the number of CPUs your code can use):
+    
+<pre>
+<code>
+#SBATCH --cpus-per-task=8
+#SBATCH --ntasks=1
+</code>
+</pre>  
+</ul>
 </ol>
 
 
