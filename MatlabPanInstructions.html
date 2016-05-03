@@ -1,0 +1,79 @@
+<html>
+<body>
+<h1>How to get your MATLAB work done on NeSI's Pan cluster</h1>
+
+
+
+<ol>
+    <li> Prerequisites: Work through the companion document <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a> first.
+
+    <li> Type "nano simplefunction.m" and Copy and Paste the following (it makes a random matrix and displays the result of a calculation), write out and exit:
+    
+<p>
+function simplefunction(n)<br>
+n = str2double(n);<br>
+a = rand(n);<br>
+save simpleMatlab a<br>
+2^10<br>
+</p>
+
+
+<li> Type "nano simpleMatlab.sl" and Copy and Paste the following (you need to replace "projectIDhere" with your project ID from OtagoPanInstructions), write out and exit:
+
+
+<p>
+#!/bin/bash<br>
+#SBATCH -J yourjobName<br>
+#SBATCH -A projectIDhere<br>
+#SBATCH --time=1:00:00<br>
+#SBATCH --mem-per-cpu=2048<br>
+#SBATCH --output=simpleMatlabout.txt<br>
+#SBATCH --error=simpleMatlaberr.txt<br>
+module load MATLAB/2015b<br>
+srun matlab -nodesktop -nosplash -nodisplay -nojvm -r 'simplefunction 20'<br>
+</p>
+
+
+<li> Submit the Slurm script you created in step 2 by typing: "sbatch simpleMatlab.sl".
+
+
+<li> When your job is finished, you should find three new files:
+
+
+<p>
+simpleMatlab.mat: a MATLAB file with a 20 by 20 random matrix in it <br>
+simpleMatlabout.txt: including the text "1024" from calculating 2^10 <br>
+simpleMatlaberr.txt: empty file <br>
+</p>
+
+
+<li> You copy the .mat file to you local machine (see OtagoPanInstructions) or look at it on the build node using:
+
+
+<p>
+ssh build-sb <br>
+module load MATLAB/2015b<br>
+matlab<br>
+load simpleMatlab<br>
+disp(a)<br>
+</p>
+
+
+<li> Changing your code to work on Pan
+
+
+<ol>
+    <li> Inputs
+
+The code you want to run will be a MATLAB script or function. If it is a script then it has no direct inputs (perhaps it will load a .mat file, or all parameters will be set in the script). If it is a function then inputs will be received by MATLAB as text strings. If you need numeric inputs, you'll need to use e.g. 'str2double' (as we did in step 1 above). 
+
+<li> Outputs
+
+It is not useful for your function to return explicit outputs: either use the text output (what you normally see on the screen which goes into the file you specify with "#SBATCH --output=") or (much more likely) save results, e.g. to a .mat file (as we did in step 1).
+
+</ol>
+</ol>
+
+
+</body>
+</html>
