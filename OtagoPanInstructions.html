@@ -24,11 +24,11 @@
 <li>Wait for an email stating that you have an account.
 
 See <a href="https://wiki.auckland.ac.nz/display/CER/How+to+log+in+using+ssh+keys">How to use ssh keys</a> if you need more help on the next three steps.
-<li>Make an ssh key using "ssh-keygen -t rsa -f ~/.ssh/pan_rsa_key" in terminal.
+<li>Make an ssh key using <code>ssh-keygen -t rsa -f ~/.ssh/pan_rsa_key</code> in terminal.
 
-<li>Send a blank email to <a href="mailto:eresearch@nesi.org.nz?Subject=Public%20SSH%20key%20for%20user%20your.cluster.username">eresearch@nesi.org.nz</a> with "Public SSH key for user your.cluster.username" as the subject (change "your.cluster.username" to your login name). Attach the file ~/.ssh/pan_rsa_key.pub to the email. This is the public ssh key. NEVER send the private key "pan_rsa_key" (without the ".pub"). On Macs, ".ssh" is a hidden directory. A way to get there is to choose "Go to Folder..." from the "Go" menu in Finder, then type in "~/.ssh". Then you can drag the file "pan_rsa_key.pub" to your email.
+<li>Send a blank email to <a href="mailto:eresearch@nesi.org.nz?Subject=Public%20SSH%20key%20for%20user%20your.cluster.username">eresearch@nesi.org.nz</a> with "Public SSH key for user your.cluster.username" as the subject (change "your.cluster.username" to your login name). Attach the file <code>~/.ssh/pan_rsa_key.pub</code> to the email. This is the public ssh key. NEVER send the private key <code>pan_rsa_key</code> (without the <code>.pub</code>). On Macs, <code>.ssh</code> is a hidden directory. A way to get there is to choose "Go to Folder..." from the "Go" menu in Finder, then type in <code>~/.ssh</code>. Then you can drag the file <code>pan_rsa_key.pub</code> to your email.
 
-<li>Type "nano ~/.ssh/config", Copy and Paste the following (but remember to replace "your.cluster.username" with your username), write out and exit:
+<li>Type <code>nano ~/.ssh/config</code>, Copy and Paste the following (but remember to replace <code>your.cluster.username</code> with your username), write out and exit:
 
 <code>
 <pre>
@@ -50,9 +50,9 @@ Wait for two email confirmations:
 
 <li>Confirmation that your project has been created. This will give you a projectID in it (aka "Project Code"), something like "uoo93837".
 
-<li>You should now be able to login using "ssh pan" in terminal. From now, when in terminal, you need to be aware whether you are "on Pan" or "on your local machine". This will usually be clear from the screen, but you can type in "hostname" to find out. If you are "on Pan" then "hostname" will say something like "login-01.uoa.nesi.org.nz". If you open a new terminal window it will be "on your local machine". If you type "ssh pan" and it works you will be "on Pan".
+<li>You should now be able to login using <code>ssh pan</code> in terminal. From now, when in terminal, you need to be aware whether you are "on Pan" or "on your local machine". This will usually be clear from the screen, but you can type in <code>hostname</code> to find out. If you are "on Pan" then <code>hostname</code> will say something like <code>login-01.uoa.nesi.org.nz</code>. If you open a new terminal window it will be "on your local machine". If you type <code>ssh pan</code> and it works you will be "on Pan".
 
-<li>On Pan, type "nano simple.sl" and Copy and Paste the following (but remember to change "projectIDhere" to the projectID you got from step 15), write out and exit:
+<li>On Pan, type <code>nano simple.sl</code> and Copy and Paste the following (but remember to change <code>projectIDhere</code> to the projectID you got from step 15), write out and exit:
 
 <code>
 <pre>
@@ -67,9 +67,9 @@ srun echo test
 </code>
 </pre>
 
-<li>Type in "sbatch simple.sl". If you get an error about the project ID:
+<li>Type in <code>sbatch simple.sl</code>. If you get an error about the project ID:
 
-<ol>
+<ol  type="a">
     <li> check that you replaced "projectIDhere" with the projectID you got from your confirmation email.
 <li> wait for an hour and try again
 <li> if it takes longer than a few hours, ask for help from <a href="mailto:support@nesi.org.nz">support@nesi.org.nz</a> (there has been trouble with projectIDs)
@@ -77,11 +77,11 @@ srun echo test
 <li>When the job is finished you will have two new files:
 
 <p>
-simpleout.txt: with contents "test"<br>
-simpleerr.txt: empty file with zero bytes<br>
+<code>simpleout.txt</code>: with contents "test"<br>
+<code>simpleerr.txt</code>: empty file with zero bytes<br>
 </p>
 
-<li>Array jobs. On the Pan cluster, type "nano array.sl" and Copy and Paste the following (but remember to change "projectIDhere" to the projectID you got from step 15), write out and exit:
+<li>Array jobs. On the Pan cluster, type <code>nano array.sl</code> and Copy and Paste the following (but remember to change <code>projectIDhere</code> to the projectID you got from step 15), write out and exit:
 
 <code>
 <pre>
@@ -98,25 +98,25 @@ srun echo test$SLURM_ARRAY_TASK_ID
 </code>
 </pre>
 
-<li>Type in "sbatch array.sl". 
+<li>Type in <code>sbatch array.sl</code>. 
 
 <li>When the job is finished you will have 20 new files:
 
 <p>
-arrayout_1.txt ... arrayout_10.txt: with contents "test1" ... "test10"<br>
-arrayerr_1.txt ... arrayerr_10.txt: empty files with zero bytes
+<code>arrayout_1.txt</code> ... <code>arrayout_10.txt</code>: with contents "test1" ... "test10"<br>
+<code>arrayerr_1.txt</code> ... <code>arrayerr_10.txt</code>: empty files with zero bytes
 </p>
 
-<li>For your own work, replace the last line of the files ending  ".sl" with the work you want to do (always preceded by "srun"). If you're using Matlab, see also the separate file "MatlabPanInstructions.txt".
+<li>For your own work, replace the last line of the files ending  <code>.sl</code> with the work you want to do (always preceded by <code>srun</code>). If you're using Matlab, see also the separate file <a href="https://rawgit.com/dannybaillie/NeSI/master/MatlabPanInstructions.html">MatlabPanInstructions</a>.
 
 You will need to send your code and input data to Pan and bring the results back to your local machine. You can do this on your local machine with:
 
 <p>
-To Pan: "scp pathtofiles pan:destinationpath"<br>
-From Pan: "scp pan:pathtofiles destinationpath"<br>
+To Pan: <code>scp pathtofiles pan:destinationpath</code><br>
+From Pan: <code>scp pan:pathtofiles destinationpath</code><br>
 </p>
 
-For improved speed or if you have trouble with stalling, replace "scp" with "rsync --progress -az -e ssh".
+For improved speed or if you have trouble with stalling, replace <code>scp</code> with <code>rsync --progress -az -e ssh</code>.
 
 Although this works for code, I recommend git (see <a href="http://swcarpentry.github.io/git-novice">swcarpentry:git</a>). Once you have you repository set up (e.g. for free on <a href="http://www.bitbucket.org">bitbucket</a> or <a href="http://www.github.com">github</a>), you workflow would be something like (starting from your local machine):
 
