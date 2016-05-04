@@ -34,7 +34,7 @@
     *   `simpleMatlab.mat`: a MATLAB file with a 20 by 20 random matrix in it
     *   `simpleMatlabout.txt`: including the text "1024" from calculating 2^10
     *   `simpleMatlaberr.txt`: empty file
-6.  You copy the file `simpleMatlab.mat` to you local machine (see [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html)) or look at it on the build node using:
+6.  You copy the file `simpleMatlab.mat` to your local machine (see [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html)) or look at it on the build node using:
 
     ```
     ssh build-sb 
