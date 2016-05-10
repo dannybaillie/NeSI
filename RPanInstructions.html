@@ -121,7 +121,7 @@ $(document).ready(function () {
 <div id="how-to-get-your-r-work-done-on-nesis-pan-cluster" class="section level1">
 <h1>How to get your R work done on NeSI’s Pan cluster</h1>
 <ol style="list-style-type: decimal">
-<li>Prerequisites: Work through the companion document <a href="https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html">OtagoPanInstructions</a> first.</li>
+<li>Prerequisites: Work through the companion document <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a> first.</li>
 <li><p>Type <code>nano simplefunction.R</code> and Copy and Paste the following (it makes a random matrix and displays the result of a calculation), write out and exit:</p>
 <pre><code>#!/usr/bin/env Rscript
 args = commandArgs(trailingOnly=TRUE)
@@ -136,7 +136,7 @@ return(2^10)
 x &lt;- simplefunction(args$1)
 print(x)
 </code></pre></li>
-<li><p>Type <code>nano simpleR.sl</code> and Copy and Paste the following (you need to replace <code>projectIDhere</code> with your project ID from <a href="https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html">OtagoPanInstructions</a>), write out and exit:</p>
+<li><p>Type <code>nano simpleR.sl</code> and Copy and Paste the following (you need to replace <code>projectIDhere</code> with your project ID from <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a>), write out and exit:</p>
 <pre><code>
 #!/bin/bash
 #SBATCH -J yourjobName
@@ -155,7 +155,7 @@ srun Rscript  simplefunction.R '20'
 <li><code>simpleRout.txt</code>: including the text “1024” from calculating 2^10</li>
 <li><code>simpleRerr.txt</code>: empty file</li>
 </ul></li>
-<li><p>You copy the file <code>simple.RData</code> to your local machine (see <a href="https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html">OtagoPanInstructions</a>) or look at it on the build node using:</p>
+<li><p>You copy the file <code>simple.RData</code> to your local machine (see <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a>) or look at it on the build node using:</p>
 <pre><code>ssh build-sb 
 load R/3.1.1-goolf-1.5.14
 R

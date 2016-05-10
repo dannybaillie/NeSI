@@ -5,7 +5,7 @@ output:
 ---
 # How to get your R work done on NeSI's Pan cluster
 
-1.  Prerequisites: Work through the companion document [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html) first.
+1.  Prerequisites: Work through the companion document [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html) first.
 2.  Type `nano simplefunction.R` and Copy and Paste the following (it makes a random matrix and displays the result of a calculation), write out and exit:
 
     ```
@@ -24,7 +24,7 @@ output:
 
     ```
 
-3.  Type `nano simpleR.sl` and Copy and Paste the following (you need to replace `projectIDhere` with your project ID from [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html)), write out and exit:
+3.  Type `nano simpleR.sl` and Copy and Paste the following (you need to replace `projectIDhere` with your project ID from [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html)), write out and exit:
 
     ```
 
@@ -45,7 +45,7 @@ output:
     *   `simple.RData`: an RData file with a 20 by 20 random matrix in it
     *   `simpleRout.txt`: including the text "1024" from calculating 2^10
     *   `simpleRerr.txt`: empty file
-6.  You copy the file `simple.RData` to your local machine (see [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html)) or look at it on the build node using:
+6.  You copy the file `simple.RData` to your local machine (see [OtagoPanInstructions](https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html)) or look at it on the build node using:
 
     ```
     ssh build-sb 
