@@ -1,6 +1,6 @@
 Instructions and scripts for using NeSI resources (www.nesi.org.nz)
 
-For setting up a NeSI account for an Otago University user please use the OtagoPan guide. Instructions specific to running MATLAB or R jobs in parallel on on Pan are given in the respective pages for each language.
+For setting up a NeSI account for an Otago University user please use the OtagoPan guide. Instructions specific to running MATLAB or R jobs in parallel on the Pan Cluster are given in the respective pages for each language.
 
 Either use the .txt instructions or click on:
 
