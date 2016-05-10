@@ -118,78 +118,105 @@ $(document).ready(function () {
 </div>
 
 
-<div id="how-to-get-your-work-done-on-nesis-pan-cluster" class="section level1">
-<h1>How to get your work done on NeSI’s Pan cluster</h1>
-<div id="for-anyone-with-a-university-of-otago-username-and-password-as-you-would-use-for-the-library." class="section level2">
-<h2>For: Anyone with a University of Otago username and password (as you would use for the library).</h2>
+<div id="how-to-get-your-r-work-done-on-nesis-pan-cluster" class="section level1">
+<h1>How to get your R work done on NeSI’s Pan cluster</h1>
 <ol style="list-style-type: decimal">
-<li>Prerequisites: You will need to use the terminal (aka the shell, command-line, the application “Terminal” on a Mac, or MobaXTerm in Windows). You press “return” or “enter” after each command. Read what it says on the screen. Just get started with the following and see how you go no matter what your background. To avoid typos, it is better to Copy and Paste the commands. If you have trouble and think it might be helped by learning about the shell, try the first three topics of <a href="http://swcarpentry.github.io/shell-novice/">swcarpentry:shell</a> (Introducing the Shell, Files and Directories, Creating Things). If the instructions aren’t working for you, I’d like to improve them, so please email me at Otago (<a href="mailto:danny.baillie@otago.ac.nz?Subject=PanInstructions">Danny Baillie</a>). People at NeSI are keen to help, email them at <a href="mailto:support@nesi.org.nz">support@nesi.org.nz</a>.</li>
-<li>Go to <a href="https://web.ceres.auckland.ac.nz/portal">ceres portal</a>.</li>
-<li>If you are told you need to log in, do so: this takes you to step 6 below.</li>
-<li>Click on “Request an account to get access to the NeSI Auckland cluster”.</li>
-<li>Choose Federation: “Tuakiri New Zealand Access Federation”, Organisation “University of Otago” and click “Select”.</li>
-<li>Enter your Otago username and password.</li>
-<li>OK the information to be sent to NeSI.</li>
-<li>Put your details on the application form, including choosing your department from the drop down list and giving a contact phone number.</li>
-<li>Wait for an email stating that you have an account. See <a href="https://wiki.auckland.ac.nz/display/CER/How+to+log+in+using+ssh+keys">How to use ssh keys</a> if you need more help on the next three steps.</li>
-<li>Make an ssh key using <code>ssh-keygen -t rsa -f ~/.ssh/pan_rsa_key</code> in terminal.</li>
-<li>Send a blank email to <a href="mailto:eresearch@nesi.org.nz?Subject=Public%20SSH%20key%20for%20user%20your.cluster.username">eresearch@nesi.org.nz</a> with “Public SSH key for user your.cluster.username” as the subject (change “your.cluster.username” to your login name). Attach the file <code>~/.ssh/pan_rsa_key.pub</code> to the email. This is the public ssh key. NEVER send the private key <code>pan_rsa_key</code> (without the <code>.pub</code>). On Macs, <code>.ssh</code> is a hidden directory. A way to get there is to choose “Go to Folder…” from the “Go” menu in Finder, then type in <code>~/.ssh</code>. Then you can drag the file <code>pan_rsa_key.pub</code> to your email.</li>
-<li><p>Type <code>nano ~/.ssh/config</code>, Copy and Paste the following (but remember to replace <code>your.cluster.username</code> with your username), write out and exit:</p>
-<pre><code>    host pan
-    HostName login.uoa.nesi.org.nz
-    User your.cluster.username # &lt;- REPLACE this with your Pan username
-    IdentityFile ~/.ssh/pan_rsa_key
-    ServerAliveInterval 120
-</code></pre>
-Add to what is already there if the file exists. See <a href="http://swcarpentry.github.io/shell-novice/02-create.html">swcarpentry:create</a> if you want help with nano.</li>
-<li>If you don’t know of an existing project you can join, choose “Request a new project” at <a href="https://web.ceres.auckland.ac.nz/portal">ceres portal</a>. Fill in the project title and description (e.g. copy and paste an abstract from one of your relevant papers). Wait for two email confirmations:</li>
-<li>Confirmation that the public key has been associated with your account.</li>
-<li>Confirmation that your project has been created. This will give you a projectID in it (aka “Project Code”), something like “uoo93837”.</li>
-<li>You should now be able to login using <code>ssh pan</code> in terminal. From now, when in terminal, you need to be aware whether you are “on Pan” or “on your local machine”. This will usually be clear from the screen, but you can type in <code>hostname</code> to find out. If you are “on Pan” then <code>hostname</code> will say something like <code>login-01.uoa.nesi.org.nz</code>. If you open a new terminal window it will be “on your local machine”. If you type <code>ssh pan</code> and it works you will be “on Pan”.</li>
-<li><p>On Pan, type <code>nano simple.sl</code> and Copy and Paste the following (but remember to change <code>projectIDhere</code> to the projectID you got from step 15), write out and exit:</p>
-<pre><code>#!/bin/bash
-#SBATCH -J testoutput
-#SBATCH -A projectIDhere  # &lt;- REPLACE this with your &quot;Project Code&quot;
-#SBATCH --time=1:00:00
-#SBATCH --mem-per-cpu=2048
-#SBATCH --output=simpleout.txt
-#SBATCH --error=simpleerr.txt
-srun echo test
+<li>Prerequisites: Work through the companion document <a href="https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html">OtagoPanInstructions</a> first.</li>
+<li><p>Type <code>nano simplefunction.R</code> and Copy and Paste the following (it makes a random matrix and displays the result of a calculation), write out and exit:</p>
+<pre><code>#!/usr/bin/env Rscript
+args = commandArgs(trailingOnly=TRUE)
+
+simplefunction &lt;- function(n){
+n &lt;- as.numeric(n)
+a &lt;- matrix(data = rnorm(n^2), nrow=n, ncol = n)
+save(a, file=&quot;simple.RData)
+return(2^10)
+}
+
+x &lt;- simplefunction(args$1)
+print(x)
 </code></pre></li>
-<li>Type in <code>sbatch simple.sl</code>. If you get an error about the project ID:
-<ol style="list-style-type: decimal">
-<li>check that you replaced “projectIDhere” with the projectID you got from your confirmation email.</li>
-<li>wait for an hour and try again</li>
-<li>if it takes longer than a few hours, ask for help from <a href="mailto:support@nesi.org.nz">support@nesi.org.nz</a> (there has been trouble with projectIDs)</li>
-</ol></li>
-<li><p>When the job is finished you will have two new files:</p>
-<p><code>simpleout.txt</code>: with contents “test” <code>simpleerr.txt</code>: empty file with zero bytes</p></li>
-<li><p>Array jobs. On the Pan cluster, type <code>nano array.sl</code> and Copy and Paste the following (but remember to change <code>projectIDhere</code> to the projectID you got from step 15), write out and exit:</p>
-<pre><code>#!/bin/bash
-#SBATCH -J arraytest
+<li><p>Type <code>nano simpleR.sl</code> and Copy and Paste the following (you need to replace <code>projectIDhere</code> with your project ID from <a href="https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html">OtagoPanInstructions</a>), write out and exit:</p>
+<pre><code>
+#!/bin/bash
+#SBATCH -J yourjobName
 #SBATCH -A projectIDhere
 #SBATCH --time=1:00:00
-#SBATCH --mem-per-cpu=1024 
-#SBATCH --cpus-per-task=1
-#SBATCH --output=arrayout_%a.txt
-#SBATCH --error=arrayerr_%a.txt
-#SBATCH --array=1-10
-srun echo test$SLURM_ARRAY_TASK_ID
+#SBATCH --mem-per-cpu=2048
+#SBATCH --output=simpleRout.txt
+#SBATCH --error=simpleRerr.txt
+load R/3.1.1-goolf-1.5.14
+srun Rscript  simplefunction.R '20'
 </code></pre></li>
-<li>Type in <code>sbatch array.sl</code>.</li>
-<li><p>When the job is finished you will have 20 new files:</p>
-<p><code>arrayout_1.txt</code> … <code>arrayout_10.txt</code>: with contents “test1” … “test10” <code>arrayerr_1.txt</code> … <code>arrayerr_10.txt</code>: empty files with zero bytes</p></li>
-<li><p>For your own work, replace the last line of the files ending <code>.sl</code> with the work you want to do (always preceded by <code>srun</code>). If you’re using R, see also the separate file <a href="https://rawgit.com/dannybaillie/NeSI/master/RPanInstructions.html">RPanInstructions</a>. You will need to send your code and input data to Pan and bring the results back to your local machine. You can do this on your local machine with:</p>
-<p>To Pan: <code>scp pathtofiles pan:destinationpath</code> From Pan: <code>scp pan:pathtofiles destinationpath</code></p>
-<p>For improved speed or if you have trouble with stalling, replace <code>scp</code> with <code>rsync --progress -az -e ssh</code>. Although this works for code, I recommend git (see <a href="http://swcarpentry.github.io/git-novice">swcarpentry:git</a>). Once you have you repository set up (e.g. for free on <a href="http://www.bitbucket.org">bitbucket</a> or <a href="http://www.github.com">github</a>), you workflow would be something like (starting from your local machine):</p>
-<pre><code>git add .
-git commit -a -m&quot;fixed T=0 overflow bug&quot;
-git push web master
-ssh pan
-git pull web master
+<li>Submit the Slurm script you created in step 2 by typing: <code>sbatch simpleR.sl</code>.</li>
+<li>When your job is finished, you should find three new files:
+<ul>
+<li><code>simple.RData</code>: an RData file with a 20 by 20 random matrix in it</li>
+<li><code>simpleRout.txt</code>: including the text “1024” from calculating 2^10</li>
+<li><code>simpleRerr.txt</code>: empty file</li>
+</ul></li>
+<li><p>You copy the file <code>simple.RData</code> to your local machine (see <a href="https://rawgit.com/dannybaillie/NeSI/R-user/OtagoPanInstructions.html">OtagoPanInstructions</a>) or look at it on the build node using:</p>
+<pre><code>ssh build-sb 
+load R/3.1.1-goolf-1.5.14
+R
+load(&quot;simple.RData&quot;)
+print(a)
 </code></pre></li>
+<li>Changing your code to work on Pan
+<ul>
+<li>Inputs: The code you want to run will be an R script or function. If it is a script then it has no direct inputs (perhaps it will load a .mat file, or all parameters will be set in the script). If it is a function then inputs will be received by R as text strings. If you need numeric inputs, you’ll need to use e.g. <code>as.numeric</code> (as we did in step 2 above).</li>
+<li>Outputs: It is not useful for your function to return explicit outputs: either use the text output (what you normally see on the screen which goes into the file you specify with <code>#SBATCH --output=</code>) or (much more likely) save results, e.g. to a <code>.mat</code> file (as we did in step 1).</li>
+<li><p>To use more than one core, add the following to your <code>.sl</code> script (change the 8 to the number of CPUs your code can use):</p>
+<pre><code>
+#SBATCH --cpus-per-task=8
+#SBATCH --ntasks=1
+</code></pre></li>
+</ul></li>
+<li><p>The script you use will also need to be modified to run R on multiple cores. We recommend using the R module demonstrated on Pan, which uses the <code>snow</code> packages and it’s <code>Rmpi</code> dependancy to take advantage of the the MPI (message passing interface supported by NeSI). For instance, with the <code>simplefunction.R</code> script, make the following changes to load the <code>snow</code> package and run the function on every core:</p></li>
 </ol>
-</div>
+<p>First modify the process to divide independent steps so they can be allocated to separate cores. For example:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Generate each column of the matrix as a random vector (data intensive steps are particularly well suited to this).</p></li>
+<li><p>Run multiple calculations at the same time, e.g., 2^i below</p>
+<pre><code>#!/usr/bin/env Rscript
+args = commandArgs(trailingOnly=TRUE)
+
+simplefunction &lt;- function(n){
+n &lt;- as.numeric(n)
+a &lt;- lapply(as.list(1:n), function(i) matrix(data = rnorm(n), nrow=1, ncol = n)) # generate each column on a separate core
+b &lt;- do.call(rbind, a) #combine output vectors into a matrix 
+save(b, file=&quot;simple.RData)
+c &lt;- sapply(1:n, function(ii) 2^ii) #do separate calculations
+return(c)
+}
+
+x &lt;- simplefunction(args$1)
+print(x)</code></pre></li>
+</ol>
+<p>In both of these cases we have used the vectorisation of R to pass a function to multiple arguments in a loop. These “apply” functions have parallel counterparts in the <code>snow</code> package.</p>
+<pre><code>```
+#!/usr/bin/env Rscript
+args = commandArgs(trailingOnly=TRUE)
+library(&quot;snow&quot;) #load package
+
+simplefunction &lt;- function(n){
+n &lt;- as.numeric(n)
+
+cl&lt;-makeMPIcluster(outfile=&quot;&quot;) #First create a cluster to send functions to (without specifying cores)
+clusterExport(cl=cl, list=ls()) #Send environment variables to end node
+
+a &lt;- parLapply(cl, as.list(1:n), function(i) matrix(data = rnorm(n), nrow=1, ncol = n)) #invoke the parallel version of lapply() and run the function on separate inputs simultaneously, the output here returns to the master node environment
+b &lt;- do.call(rbind, a)
+save(b, file=&quot;simple.RData)
+c &lt;- parSapply(cl, 1:n, function(ii) 2^ii) #we can use this cluster again with sapply in a similar manner
+stopCluster(cl) #remember to stop a cluster in R once you are done
+return(c)
+}
+
+x &lt;- simplefunction(args$1)
+print(x)
+```</code></pre>
+<p>Note that you <strong>do not</strong> have to specify how many cores to use when creating the cluster in R, this defaults to the maximum number of cores available to your NeSI job (i.e., the “cpus-per-task” you requested in the slurm file).</p>
 </div>
 
 
