@@ -30,7 +30,7 @@ simpleMatlab.mat: a MATLAB file with a 20 by 20 random matrix in it
 simpleMatlabout.txt: including the text "1024" from calculating 2^10
 simpleMatlaberr.txt: empty file
 
-5. You copy the .mat file to you local machine (see OtagoPanInstructions) or look at it on the build node using:
+5. You copy the .mat file to your local machine (see OtagoPanInstructions) or look at it on the build node using:
 
 ssh build-sb
 module load MATLAB/2015b
