@@ -30,7 +30,7 @@
     #SBATCH --mem-per-cpu=2048
     #SBATCH --output=simpleRout.txt
     #SBATCH --error=simpleRerr.txt
-    load R/3.1.1-goolf-1.5.14
+    module load R/3.1.1-goolf-1.5.14
     srun Rscript  simplefunction.R '20'
 
     ```
@@ -44,7 +44,7 @@
 
     ```
     ssh build-sb 
-    load R/3.1.1-goolf-1.5.14
+    module load R/3.1.1-goolf-1.5.14
     R
     load("simple.RData")
     print(a)
@@ -63,7 +63,7 @@
 
         ```
 
-9.  The script you use will also need to be modified to run R on multiple cores. We recommend using the R module demonstrated on Pan, which uses the `snow` packages and it's `Rmpi` dependancy to take advantage of the the MPI (message passing interface supported by NeSI). For instance, with the `simplefunction.R` script, make the following changes to load the `snow` package and run the function on every core:
+9.  The script you use will also need to be modified to run R on multiple cores. We recommend using the R module demonstrated on Pan, which uses the `snow` packages and it's `Rmpi` dependancy to take advantage of the the MPI (message passing interface supported by NeSI). A larger list of modules is avaialable of on the [NeSI Wiki](https://github.com/nesi/applications/wiki/R) or you can contact the [NeSI Support Team by email](mailto:support@nesi.org.nz). For instance, with the `simplefunction.R` script, make the following changes to load the `snow` package and run the function on every core:
 
 First modify the process to divide independent steps so they can be allocated to separate cores. For example:
 

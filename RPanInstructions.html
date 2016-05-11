@@ -145,7 +145,7 @@ print(x)
 #SBATCH --mem-per-cpu=2048
 #SBATCH --output=simpleRout.txt
 #SBATCH --error=simpleRerr.txt
-load R/3.1.1-goolf-1.5.14
+module load R/3.1.1-goolf-1.5.14
 srun Rscript  simplefunction.R '20'
 </code></pre></li>
 <li>Submit the Slurm script you created in step 2 by typing: <code>sbatch simpleR.sl</code>.</li>
@@ -157,7 +157,7 @@ srun Rscript  simplefunction.R '20'
 </ul></li>
 <li><p>You copy the file <code>simple.RData</code> to your local machine (see <a href="https://rawgit.com/dannybaillie/NeSI/master/OtagoPanInstructions.html">OtagoPanInstructions</a>) or look at it on the build node using:</p>
 <pre><code>ssh build-sb 
-load R/3.1.1-goolf-1.5.14
+module load R/3.1.1-goolf-1.5.14
 R
 load(&quot;simple.RData&quot;)
 print(a)
@@ -172,7 +172,7 @@ print(a)
 #SBATCH --ntasks=1
 </code></pre></li>
 </ul></li>
-<li><p>The script you use will also need to be modified to run R on multiple cores. We recommend using the R module demonstrated on Pan, which uses the <code>snow</code> packages and it’s <code>Rmpi</code> dependancy to take advantage of the the MPI (message passing interface supported by NeSI). For instance, with the <code>simplefunction.R</code> script, make the following changes to load the <code>snow</code> package and run the function on every core:</p></li>
+<li><p>The script you use will also need to be modified to run R on multiple cores. We recommend using the R module demonstrated on Pan, which uses the <code>snow</code> packages and it’s <code>Rmpi</code> dependancy to take advantage of the the MPI (message passing interface supported by NeSI). A larger list of modules is avaialable of on the <a href="https://github.com/nesi/applications/wiki/R">NeSI Wiki</a> or you can contact the <a href="mailto:support@nesi.org.nz">NeSI Support Team by email</a>. For instance, with the <code>simplefunction.R</code> script, make the following changes to load the <code>snow</code> package and run the function on every core:</p></li>
 </ol>
 <p>First modify the process to divide independent steps so they can be allocated to separate cores. For example:</p>
 <ol style="list-style-type: lower-alpha">
