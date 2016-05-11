@@ -217,6 +217,8 @@ x &lt;- simplefunction(args$1)
 print(x)
 ```</code></pre>
 <p>Note that you <strong>do not</strong> have to specify how many cores to use when creating the cluster in R, this defaults to the maximum number of cores available to your NeSI job (i.e., the “cpus-per-task” you requested in the slurm file).</p>
+<p>Many R packages are already installed in a module on NeSI and can be loaded with the <code>library()</code> command in an Rscript (such as <code>snow</code> and <code>Rmpi</code> as we have already used). However if the package you wish to use is not installed on NeSI, you can run the <code>install.R</code> script here with <code>sbatch install.sl</code> with the package you wish to use in place of “package_name” in <code>install.sl</code> (edit with <code>nano install.sl</code> and upload to NeSI with <code>scp install.sl pan:path_to_project_dir</code>). This should work for any R package hosted by CRAN.</p>
+<p>Once installed (you should only need to do this once per package), future jobs will be able to call on this package with <code>library</code> as you would on a local machine. The <code>nz_repo</code> variable in <code>install.R</code> could be changed for a bioconductor, github, or sourceforge package but if this doesn’t work (or your package requires other dependancies, e.g, <code>apt-get install package_name</code>, then it’s advisable to can contact the <a href="mailto:support@nesi.org.nz">NeSI Support Team by email</a> for further assistance. Many of the large domain-specific resources (such as NCBI BLAST databases) are hosted on NeSI already.</p>
 </div>
 
 
