@@ -88,9 +88,24 @@ output:
 
     ```
     git add .
-    git commit -a -m"fixed T=0 overflow bug"
+    git commit -a -m "fixed T=0 overflow bug"
     git push web master
     ssh pan
     git pull web master
 
+    ```
+
+Notes.
+
+You can monitor submitted jobs with the command: `squeue -u your.cluster.username`
+
+The job IDs here (or shown when you submit jobs to the cluster with `sbatch`) can be used in a variety of ways. Replace "JobID" here with the numerical code for your job.
+
+* To cancel running or queued job if you spot an error in one with `scancel JobID`
+
+* To submit another job with a dependancy (it will only run once a prior job has completed). For example 
+if we note the Job ID for test.sl, we could submit and array job to run once test.sl has completed:
+
+    ```
+    sbatch sbatch --dependency=afterok:JobID array.sl
     ```

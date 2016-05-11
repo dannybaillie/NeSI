@@ -183,12 +183,20 @@ srun echo test$SLURM_ARRAY_TASK_ID
 <p>To Pan: <code>scp pathtofiles pan:destinationpath</code> From Pan: <code>scp pan:pathtofiles destinationpath</code></p>
 <p>For improved speed or if you have trouble with stalling, replace <code>scp</code> with <code>rsync --progress -az -e ssh</code>. Although this works for code, I recommend git (see <a href="http://swcarpentry.github.io/git-novice">swcarpentry:git</a>). Once you have you repository set up (e.g. for free on <a href="http://www.bitbucket.org">bitbucket</a> or <a href="http://www.github.com">github</a>), you workflow would be something like (starting from your local machine):</p>
 <pre><code>git add .
-git commit -a -m&quot;fixed T=0 overflow bug&quot;
+git commit -a -m &quot;fixed T=0 overflow bug&quot;
 git push web master
 ssh pan
 git pull web master
 </code></pre></li>
 </ol>
+<p>Notes.</p>
+<p>You can monitor submitted jobs with the command: <code>squeue -u your.cluster.username</code></p>
+<p>The job IDs here (or shown when you submit jobs to the cluster with <code>sbatch</code>) can be used in a variety of ways. Replace “JobID” here with the numerical code for your job.</p>
+<ul>
+<li><p>To cancel running or queued job if you spot an error in one with <code>scancel JobID</code></p></li>
+<li><p>To submit another job with a dependancy (it will only run once a prior job has completed). For example if we note the Job ID for test.sl, we could submit and array job to run once test.sl has completed:</p>
+<pre><code>sbatch sbatch --dependency=afterok:JobID array.sl</code></pre></li>
+</ul>
 </div>
 </div>
 
