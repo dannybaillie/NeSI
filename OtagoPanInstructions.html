@@ -189,7 +189,7 @@ ssh pan
 git pull web master
 </code></pre></li>
 </ol>
-<p>Notes.</p>
+<p>Notes. These pointers are particularly handy for running longer jobs.</p>
 <p>You can monitor submitted jobs with the command: <code>squeue -u your.cluster.username</code></p>
 <p>The job IDs here (or shown when you submit jobs to the cluster with <code>sbatch</code>) can be used in a variety of ways. Replace “JobID” here with the numerical code for your job.</p>
 <ul>
@@ -197,6 +197,11 @@ git pull web master
 <li><p>To submit another job with a dependancy (it will only run once a prior job has completed). For example if we note the Job ID for test.sl, we could submit and array job to run once test.sl has completed:</p>
 <pre><code>sbatch sbatch --dependency=afterok:JobID array.sl</code></pre></li>
 </ul>
+<p>You can also add the following lines to your slurm <code>test.sl</code> file to get email notifications:</p>
+<pre><code>```
+#SBATCH --mail-type=ALL # other options include BEGIN, END, FAIL (for when the cluster will email you)
+#SBATCH --mail-user=username@domain # &lt;- Your email address here
+```</code></pre>
 </div>
 </div>
 

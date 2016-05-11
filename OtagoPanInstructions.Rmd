@@ -95,7 +95,7 @@ output:
 
     ```
 
-Notes.
+Notes. These pointers are particularly handy for running longer jobs.
 
 You can monitor submitted jobs with the command: `squeue -u your.cluster.username`
 
@@ -109,3 +109,12 @@ if we note the Job ID for test.sl, we could submit and array job to run once tes
     ```
     sbatch sbatch --dependency=afterok:JobID array.sl
     ```
+
+You can also add the following lines to your slurm `test.sl` file to get email notifications:
+    
+    ```
+    #SBATCH --mail-type=ALL # other options include BEGIN, END, FAIL (for when the cluster will email you)
+    #SBATCH --mail-user=username@domain # <- Your email address here
+    ```
+    
+    
