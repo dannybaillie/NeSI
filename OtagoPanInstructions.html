@@ -151,7 +151,7 @@ Add to what is already there if the file exists. See <a href="http://swcarpentry
 #SBATCH -J testoutput
 #SBATCH -A projectIDhere  # &lt;- REPLACE this with your &quot;Project Code&quot;
 #SBATCH --time=1:00:00
-#SBATCH --mem-per-cpu=2048
+#SBATCH --mem-per-cpu=2G
 #SBATCH --output=simpleout.txt
 #SBATCH --error=simpleerr.txt
 srun echo test

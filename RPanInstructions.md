@@ -27,11 +27,11 @@
     #SBATCH -J yourjobName
     #SBATCH -A projectIDhere
     #SBATCH --time=1:00:00
-    #SBATCH --mem-per-cpu=2048
+    #SBATCH --mem-per-cpu=2G
     #SBATCH --output=simpleRout.txt
     #SBATCH --error=simpleRerr.txt
     module load R/3.1.1-goolf-1.5.14
-    srun Rscript  simplefunction.R '20'
+    srun Rscript simplefunction.R '20'
 
     ```
 

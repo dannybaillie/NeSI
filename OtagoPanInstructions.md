@@ -36,7 +36,7 @@
     #SBATCH -J testoutput
     #SBATCH -A projectIDhere  # <- REPLACE this with your "Project Code"
     #SBATCH --time=1:00:00
-    #SBATCH --mem-per-cpu=2048
+    #SBATCH --mem-per-cpu=2G
     #SBATCH --output=simpleout.txt
     #SBATCH --error=simpleerr.txt
     srun echo test
