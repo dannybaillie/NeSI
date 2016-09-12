@@ -102,15 +102,8 @@ The job IDs here (or shown when you submit jobs to the cluster with `sbatch`) ca
 if we note the Job ID for test.sl, we could submit and array job to run once test.sl has completed:
 
     ```
-    sbatch --dependency=afterok:JobID array.sl
+    sbatch sbatch --dependency=afterok:JobID array.sl
     ```
-
-It is also possible to capture the job ID for the purposes of automating submission of dependent jobs in a script. For instance below where `test.sl` and `array.sl` are submitted with array only running once `test.sl` has completed. Applications of this include submitting steps which require high cores or memory separately to optimise queuing time or where multiple jobs each depending on shared pre-processed data.
-
-    ```
-    RES=$(sbatch test.sl) &&
-    sbatch --dependency=afterok:${RES##* } array.sl
-    ``` 
 
 You can also add the following lines to your slurm `test.sl` file to get email notifications:
     
